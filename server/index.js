@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const emailRoutes = require('./Routers/emailRoutes');
+const path = require('path');
 
 console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_DATABASE:", process.env.DB_DATABASE);
@@ -12,6 +13,9 @@ console.log("DB_PORT:", process.env.DB_PORT);
 
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 const port = process.env.PORT || 5003;
 
 app.use(cors({
@@ -23,8 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', emailRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
 
 app.listen(port, () => {
