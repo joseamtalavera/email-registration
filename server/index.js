@@ -18,10 +18,25 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 const port = process.env.PORT || 5003;
 
+const allowedOrigins = ['http://localhost:3001', 'https://emailcall.onrender.com'];
+
 app.use(cors({
-    origin: 'http://localhost:3001',
-    credentials: true,
+        origin: function(origin, callback){
+            if(!origin) return callback(null, true);
+            if(allowedOrigins.indexOf(origin) === -1){
+                var msg = 'The CORS policy for this site does not ' +
+                                    'allow access from the specified Origin.';
+                return callback(new Error(msg), false);
+            }
+            return callback(null, true);
+        },
+        credentials: true,
 }));
+
+/* app.use(cors({
+    origin: 'https://emailcall.onrender.com',
+    credentials: true,
+})); */
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
