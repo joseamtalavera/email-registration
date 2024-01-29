@@ -1,5 +1,5 @@
 // models/queries.js
-require('dotenv').config();
+require('dotenv').config(); // very important to have installed to communicate with .env file
 const { Pool } = require('pg');
 const pool = new Pool({
     host: process.env.DB_HOST,
