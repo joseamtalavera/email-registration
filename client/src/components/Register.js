@@ -49,7 +49,9 @@ function Register() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:5003/api/register', {
+        console.log('API_URL:', process.env.REACT_APP_API_URL);
+        //const response = await fetch('http://localhost:5003/api/register', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, { // this is the same as the above line (but using the .env file)  
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
