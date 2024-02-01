@@ -71,7 +71,7 @@ function Register() {
 
     const showEmails = async () => {
         //const response = await fetch('http://localhost:5003/api/emails');
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/register`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/emails`);
         const data = await response.json();
         setEmails(data);
     };
