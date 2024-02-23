@@ -32,8 +32,10 @@ if (isProduction) {
     // For production, use DATABASE_URL
     poolConfig = {
         connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
+        //ssl: { rejectUnauthorized: false },
+        ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     };
+    console.log(process.env.DATABASE_URL);
 } else {
     // For local development, use individual environment variables
     poolConfig = {
@@ -47,5 +49,15 @@ if (isProduction) {
 }
 
 const pool = new Pool(poolConfig);
+
+/* const email = 'test@example.com'; // replace with the email you want to insert
+
+pool.query('INSERT INTO emails(email) VALUES($1) RETURNING *', [email], (err, res) => {
+    if (err) {
+        console.error('Error executing query', err.stack);
+    } else {
+        console.log('Email inserted successfully');
+    }
+}); */
 
 module.exports = pool;

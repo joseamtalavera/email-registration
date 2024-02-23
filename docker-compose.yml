@@ -1,0 +1,32 @@
+version: '3'
+services:
+  client:
+    build: ./client
+    ports:
+      - 3002:3001
+    volumes:
+      - ./client:/usr/src/app  
+    environment:
+      - REACT_APP_API_URL=http://localhost:5004
+    depends_on:
+      - server
+  server:
+    build: ./server
+    ports:
+      - 5004:5003
+    volumes:
+      - ./server:/usr/src/app  
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://postgres:password@db:5432/postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
