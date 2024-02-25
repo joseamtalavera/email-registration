@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 const port = process.env.PORT || 5003;
 
-const allowedOrigins = ['http://localhost:3001', 'https://emailcall.onrender.com', 'http://localhost:3002'];
+const allowedOrigins = ['http://localhost:3001', 'https://emailcall.onrender.com','https://email-call.azurewebsites.net', 'http://localhost:3002'];
 
 app.use(cors({
         origin: function(origin, callback){
