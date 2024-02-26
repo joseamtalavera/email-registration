@@ -35,7 +35,7 @@ if (isProduction) {
         //ssl: { rejectUnauthorized: false },
         ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     };
-    console.log(process.env.DATABASE_URL);
+    console.log('Production DATABASE_URL:', process.env.DATABASE_URL);
 } else {
     // For local development, use individual environment variables
     poolConfig = {
@@ -46,8 +46,9 @@ if (isProduction) {
         password: process.env.DB_PASSWORD,
         // Assume SSL is not needed for local development, adjust as necessary
     };
+    console.log("process.env.DB_HOST:", process.env.DB_HOST);
 }
-
+console.log("poolConfig:", poolConfig);
 const pool = new Pool(poolConfig);
 
 /* const email = 'test@example.com'; // replace with the email you want to insert
