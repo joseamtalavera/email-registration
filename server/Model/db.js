@@ -24,16 +24,21 @@ module.exports = pool; */
 
 const { Pool } = require('pg');
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production'; 
 
 let poolConfig;
 
 if (isProduction) {
     // For production, use DATABASE_URL
     poolConfig = {
-        connectionString: process.env.DATABASE_URL,
-        //ssl: { rejectUnauthorized: false },
-        ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
+         //connectionString: process.env.DATABASE_URL,
+        //ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
+        host: process.env.AZURE_POSTGRESQL_HOST,
+        port: process.env.AZURE_POSTGRESQL_PORT,
+        database: process.env.AZURE_POSTGRESQL_DATABASE,
+        user: process.env.AZURE_POSTGRESQL_USER,
+        password: process.env.AZURE_POSTGRESQL_PASSWORD,
+        ssl: process.env.AZURE_POSTGRESQL_SSL,
     };
     console.log('Production DATABASE_URL:', process.env.DATABASE_URL);
 } else {
